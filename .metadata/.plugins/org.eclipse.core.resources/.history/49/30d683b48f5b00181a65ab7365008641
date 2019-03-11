@@ -1,0 +1,59 @@
+package com.patidar.om.functions;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+public class ScalarandAggregateFunctionsExample {
+
+	public static void main(String[] args) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("JPACURDOperation");
+		EntityManager entitymanager = emfactory.createEntityManager();
+
+		// Scalar function
+		Query query = entitymanager.createQuery("Select UPPER(e.ename) from Employee e");
+		@SuppressWarnings("unchecked")
+		List<String> list = query.getResultList();
+
+		for (String e : list) {
+			System.out.println("======Employee NAME :" + e);
+		}
+
+		// Aggregate function
+		///max function
+		Query query1 = entitymanager.createQuery("Select MAX(e.salary) from Employee e");
+		Double maxSalary = (Double) query1.getSingleResult();
+		System.out.println("=========MAX Employee Salary :" + maxSalary);
+		
+		///min function
+		Query query2 = entitymanager.createQuery("Select MIN(e.salary) from Employee e");
+		Double minSalary = (Double) query2.getSingleResult();
+		System.out.println("***********MIN Employee Salary :" + minSalary);
+		
+		///min function
+		Query query3 = entitymanager.createQuery("Select COUNT(e.salary) from Employee e");
+		Long countSalary = (Long) query3.getSingleResult();
+		System.out.println("***********COUNT Employee Salary :" + countSalary);
+		
+		///SUM function
+		Query query4 = entitymanager.createQuery("Select SUM(e.salary) from Employee e");
+		Double sumSalary = (Double) query4.getSingleResult();
+		System.out.println("***********SUM Employee Salary :" + sumSalary);		
+		
+		///AVG function
+		Query query5 = entitymanager.createQuery("Select AVG(e.salary) from Employee e");
+		Double avgSalary = (Double) query5.getSingleResult();
+		System.out.println("***********AVG Employee Salary :" + avgSalary);	
+		
+		///COUNTALL function
+		Query query6 = entitymanager.createQuery("Select COUNT(*) from Employee e");
+		Long countAll = (Long) query6.getSingleResult();
+		System.out.println("***********COUNTALL Employee :" + countAll);
+		
+	}
+
+}

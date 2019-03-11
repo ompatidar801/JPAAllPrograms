@@ -1,0 +1,6 @@
+package com.patidar.om.manyToOneMapping;
+
+public class Department 
+{
+
+}

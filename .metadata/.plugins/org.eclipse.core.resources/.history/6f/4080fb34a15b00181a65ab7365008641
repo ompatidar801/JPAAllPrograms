@@ -1,0 +1,11 @@
+package com.patidar.om.oneToOneMapping;
+
+public class StdAdd {
+
+	public static void main(String[] args) 
+	{
+		
+
+	}
+
+}

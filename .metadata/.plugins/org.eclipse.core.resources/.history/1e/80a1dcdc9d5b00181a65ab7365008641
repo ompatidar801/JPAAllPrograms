@@ -1,0 +1,5 @@
+package com.patidar.om.oneToOneMapping;
+
+public class Address {
+
+}

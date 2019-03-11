@@ -1,0 +1,39 @@
+package com.patidar.om.manyToOneMapping;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+public class EmpDepart {
+
+	public static void main(String[] args) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAMappings");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction txn = em.getTransaction();
+		
+		
+		Employee employee = new Employee();
+		employee.setEmail("Ankit2@gmail.com");
+		employee.setFirstname("Ankit");
+		employee.setLastname("Patidar");
+		
+		Department d1 = new Department();
+		d1.setIddepartment(1);
+		d1.setName("Computer");
+		em.persist(d1);
+		
+		txn.begin();
+		Department department = em.find(Department.class, 1);// returns the department named vert
+		System.out.println(department);
+		txn.commit();
+
+		employee.setDepartment(department);
+
+		txn.begin();
+		em.persist(employee);
+		txn.commit();
+
+	}
+
+}

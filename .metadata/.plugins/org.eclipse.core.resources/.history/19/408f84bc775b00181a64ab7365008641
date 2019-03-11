@@ -1,0 +1,83 @@
+package com.patidar.om.curdOperation;
+
+import java.util.Scanner;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public class EmployeeCreateOperation 
+{
+	static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "JPACURDOperation" );
+	
+	Scanner sc = new Scanner(System.in);
+	
+	public static void saveEmployee()
+	{
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		
+		
+		System.out.println("Enter Employee Details:");
+		System.out.println("Enter EmployeeID");
+		int eid = sc.nextInt();
+		
+		System.out.println("Enter EmployeeName");
+		String ename = sc.next();
+		
+		System.out.println("Enter EmployeeSalary");
+		double esalary = sc.nextDouble();
+		
+		System.out.println("Enter EmployeeDeg");
+		String eDeg = sc.next();
+		
+		Employee employee = new Employee();
+		employee.setEid(eid);
+		employee.setEname(ename);
+		employee.setSalary(esalary);
+		employee.setDeg(eDeg);
+
+		entitymanager.persist(employee);
+		entitymanager.getTransaction().commit();
+
+		entitymanager.close();
+
+	}
+	
+	public static void updateEmployee()
+	{
+		
+	}
+	
+	public static void getEmployee()
+	{
+		
+	}
+	
+	public static void deleteEmployee()
+	{
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter EmployeeID");
+		int eid = sc.nextInt();
+		
+		Employee employee = entitymanager.find(Employee.class, eid);
+		entitymanager.remove(employee);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		
+	}
+	
+	public static void main(String[] args) 
+	{
+		
+		saveEmployee();
+		//updateEmployee();
+		//getEmployee();
+		//deleteEmployee();
+		emfactory.close( );
+	}
+
+}
